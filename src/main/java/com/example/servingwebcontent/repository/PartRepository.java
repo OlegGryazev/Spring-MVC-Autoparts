@@ -9,4 +9,5 @@ public interface PartRepository extends CrudRepository<Part, Long> {
     List<Part> findByManufacturerIgnoreCase(String manufacturer);
     List<Part> findByArticleIgnoreCase(String article);
     List<Part> findByArticleAndManufacturerIgnoreCase(String article, String manufacturer);
+    Part findById(Integer id);
 }

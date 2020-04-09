@@ -1,14 +1,11 @@
 <#import "parts/common.ftl" as c>
 <#import "parts/login.ftl" as l>
 <@c.page>
-    <div>
-        <span><a href="/user">User list</a></span>
-        <@l.logout />
-    </div>
 <div>
-    <form method="post" action="add">
+    <form method="post" action="add" enctype="multipart/form-data">
         <input type="text" name="article" placeholder="Введите артикул" />
         <input type="text" name="manufacturer" placeholder="Введите производителя" />
+        <input type="file" name="file" />
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <button type="submit">Добавить</button>
     </form>
@@ -24,14 +21,25 @@
 
 <div>Messages</div>
 <#list parts as part>
-<div>
-    ${part.id}
-    ${part.article}
-    ${part.manufacturer}
-    <strong>${part.authorName}</strong>
-</div>
-    <#else>
+    <div style="width:40pt">
+    <form method="get" action="del">
+        <input type="hidden" name="partid" value="${part.id}" />
+        <button type="submit">del</button>
+    </form>
+    </div>
+    <div>
+        ${part.id}
+        ${part.article}
+        ${part.manufacturer}
+        <strong>${part.authorName}</strong>
+        <div>
+            <#if part.filename??>
+                <img src="/img/${part.filename}">
+            </#if>
+        </div>
+    </div>
+<#else>
     No parts.
 </#list>
-<a href="/">greeting</a>
+    <a href="/">greeting</a>
 </@c.page>
