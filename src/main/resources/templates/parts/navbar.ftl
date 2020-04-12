@@ -13,17 +13,24 @@
             <li class="nav-item">
                 <a class="nav-link" href="/main">Parts</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/carList">My cars</a>
+            </li>
             <#if isAdmin>
             <li class="nav-item">
                 <a class="nav-link" href="/user">User list</a>
             </li>
             </#if>
         </ul>
-        <div class="navbar-text mr-3">${name}</div>
+
+        <form class="form-inline my-2 mr-2 my-lg-0" action="/user/${name}" method="get">
+            <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Edit Account" />
+        </form>
+
         <#if name != "unknown">
             <form class="form-inline my-2 my-lg-0" action="/logout" method="post">
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Sign Out"/>
+                <input class="btn btn-primary my-2 my-sm-0" type="submit" value="Sign Out"/>
             </form>
         </#if>
     </div>
