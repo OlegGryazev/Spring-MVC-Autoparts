@@ -15,6 +15,12 @@
             <td>${user.username}</td>
             <td><#list user.roles as role>${role}<#sep>, </#list></td>
             <td><a href="/user/${user.id}">edit</a></td>
+            <td>
+                <form action="/carList" method="get" >
+                    <input type="hidden" name="username" value="${user.username}"/>
+                    <button type="submit">Edit cars</button>
+                </form>
+            </td>
         </tr>
         </#list>
         </tbody>

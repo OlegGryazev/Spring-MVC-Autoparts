@@ -7,10 +7,7 @@ import com.example.servingwebcontent.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -28,8 +25,10 @@ public class CarController {
     }
 
     @GetMapping
-    public String getCarList(Map<String, Object> model, Principal principal){
-        User user = userRepository.findByUsername(principal.getName());
+    public String getCarList(@RequestParam(value="username", defaultValue = "none") String username, Map<String, Object> model, Principal principal){
+        if (username.equals("none"))
+            username = principal.getName();
+        User user = userRepository.findByUsername(username);
         List<Car> cars = carRepository.findByOwner(user);
         model.put("cars", cars);
         return "carList";
